@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: myconfig
 data:
-  course: "Kubernetes"
-  duration: "30hrs"
+  course: "DevOps-k8"
+  duration: "10hrs"
