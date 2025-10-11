@@ -7,6 +7,22 @@ spec:
     - name: nginx
       image: nginx
       env:
+      - name: project
+        value: expense
+      - name: component
+        value: backend
+      - name: environment
+        value: dev
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      env:
       - name: course
         value: DevOps
       - name: duration

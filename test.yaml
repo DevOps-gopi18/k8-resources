@@ -1,0 +1,162 @@
+#Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: expense
+
+#Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: expense-pod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+#multi-containers
+apiVersion: v1
+kind: pod
+metadata:
+  name: multi-containers
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  - name: almalinux
+    image: almalinux:9
+
+#Labels
+apiVersion: v1
+kind: Pod
+metadata:
+  name: labels
+labels:
+  project: expense
+  environment: dev
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+#ENV
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    env:
+    - name: dev
+      value: expense
+    - name: environment
+      value: prod 
+
+#configMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfig
+data:
+  environment: "dev"
+  project: "expense"
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-configMap
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    envFrom:
+      configMapRef:
+        name: myconfig
+
+#service
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+spec:
+  selector:
+    project: expense
+    environment: dev
+    component: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: pod
+metadata:
+  name: pod-service
+  labels:
+    project: expense
+    environment: dev
+    component: backend
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+#NodePort
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+spec:
+  type: NodePort
+  selector:
+    project: expense
+    environment: dev
+    component: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: pod
+metadata:
+  name: pod-service
+  labels:
+    project: expense
+    environment: dev
+    component: backend
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+
+#ReplicaSet
+apiVersion: v1
+kind: ReplicaSet
+metadata:
+  name: replicaset
+  labels:
+    project: expense
+    environment: dev
+spec:
+  replicas: 3
+  selectors:
+    matchLabels:
+      project: expense
+      environment: dev
+  #Pod template
+  template:
+    metadata:
+      labels:
+        project: expense
+        environment: dev
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+
+
+
