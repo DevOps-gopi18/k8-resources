@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: gopi310/deployment:1.0
+        image: gopi310/deployment:2.0
         ports:
         - containerPort: 80
 ---
