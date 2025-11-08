@@ -4,7 +4,7 @@ metadata:
   name: sa-demo 
   namespace: expense
 spec:
-  ServiceAccount: expense-mysql-secret
+  serviceAccount: expense-mysql-secret
   initContainers:
   - name: awscli
     image: amazon/aws-cli
